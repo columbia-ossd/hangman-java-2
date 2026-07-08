@@ -5,12 +5,14 @@ public class Game {
     private static final int MAX_ERRORS = 6;
 
     private final Dictionary dictionary;
+    private final Scanner input;
     private String wordToFind;
     private char[] wordFound;
     private int numberOfErrors;
     private ArrayList<String> guessedLetters;
-
-    public Game() {
+ 
+    public Game(Scanner input) {
+        this.input = input;
         dictionary = new Dictionary();
         guessedLetters = new ArrayList<>();
     }
@@ -33,7 +35,6 @@ public class Game {
     }
 
     public void play() {
-        try (Scanner input = new Scanner(System.in)) {
             while (numberOfErrors < MAX_ERRORS && !wordFound()) {
                 System.out.print("\nEnter a letter: ");
                 String userInput = input.next();
@@ -56,7 +57,7 @@ public class Game {
                 System.out.println("The city was: " + wordToFind);
             }
         }
-    }
+    
 
     private void processGuess(String userInput) {
         if (guessedLetters.contains(userInput)) {
@@ -78,7 +79,7 @@ public class Game {
         }
     }
 
-    private boolean wordFound() {
+    public boolean wordFound() {
         return wordToFind.contentEquals(new String(wordFound));
     }
 
